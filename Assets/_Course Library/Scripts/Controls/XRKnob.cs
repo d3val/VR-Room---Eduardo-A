@@ -113,4 +113,9 @@ public class XRKnob : XRBaseInteractable
         Value = Mathf.InverseLerp(minimum, maximum, rotation);
         OnValueChange.Invoke(Value);
     }
+
+    public void ShowValue()
+    {
+        Debug.Log(Value);
+    }
 }

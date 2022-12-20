@@ -8,12 +8,14 @@ public class MoveWithVelocity : MonoBehaviour
 {
     [Tooltip("The speed at which the object is moved")]
     public float speed = 1.0f;
+    public XRKnob speedKnob = null;
 
     [Tooltip("Controls the direction of movement")]
     public Transform origin = null;
 
     private Vector3 inputVelocity = Vector3.zero;
     private Rigidbody rigidBody = null;
+    private float speedModifier = 1.0f;
 
     private void Awake()
     {
@@ -27,7 +29,7 @@ public class MoveWithVelocity : MonoBehaviour
 
     private void ApplyVelocity()
     {
-        Vector3 targetVelocity = inputVelocity * speed;
+        Vector3 targetVelocity = inputVelocity * speed * speedModifier;
         targetVelocity = origin.TransformDirection(targetVelocity);
 
         Vector3 velocityChange = targetVelocity - rigidBody.velocity;
@@ -53,5 +55,10 @@ public class MoveWithVelocity : MonoBehaviour
     {
         if (!origin)
             origin = transform;
+    }
+
+    public void SetSpeedModifier()
+    {
+        speedModifier = 1 + speedKnob.Value;
     }
 }
